@@ -1,6 +1,6 @@
 <x-admin-layout>
     <div class="container px-6 py-8 mx-auto">
-        <h3 class="text-3xl font-medium text-gray-700">Daftar Buku</h3>
+        <h3 class="text-3xl font-medium text-gray-700">Daftar User</h3>
 
         <div class="mt-4">
             <div class="flex flex-wrap -mx-6">
@@ -32,7 +32,7 @@
 
                         <div class="mx-5">
                             <h4 class="text-2xl font-semibold text-gray-700">8,282</h4>
-                            <div class="text-gray-500">New Users</div>
+                            <div class="text-gray-500">Pengguna</div>
                         </div>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
 
                         <div class="mx-5">
                             <h4 class="text-2xl font-semibold text-gray-700">200,521</h4>
-                            <div class="text-gray-500">Total Orders</div>
+                            <div class="text-gray-500">Toko</div>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,7 @@
 
                         <div class="mx-5">
                             <h4 class="text-2xl font-semibold text-gray-700">215,542</h4>
-                            <div class="text-gray-500">Available Products</div>
+                            <div class="text-gray-500">Jumlah Buku</div>
                         </div>
                     </div>
                 </div>
@@ -96,17 +96,16 @@
                             <tr>
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Name</th>
+                                    Buku</th>
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Title</th>
+                                    Nama Toko</th>
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                     Status</th>
                                 <th
                                     class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Role</th>
-                                <th class="px-6 py-3 border-b border-gray-200 bg-gray-50"></th>
+                                    Stok</th>
                             </tr>
                         </thead>
 

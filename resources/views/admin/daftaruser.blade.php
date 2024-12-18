@@ -1,6 +1,6 @@
 <x-admin-layout>
     <div class="container px-6 py-8 mx-auto">
-        <h3 class="text-3xl font-medium text-gray-700">Daftar Buku</h3>
+        <h3 class="text-3xl font-medium text-gray-700">Daftar User</h3>
 
         <div class="mt-4">
             <div class="flex flex-wrap -mx-6">

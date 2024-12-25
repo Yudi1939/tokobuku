@@ -24,6 +24,8 @@ Route::middleware('auth')->group(function () {
     });
     Route::prefix('user')->group(function () {
         Route::get('home',[UserController::class,'index'])->name('home');
+        Route::get('detail/{id}', [UserController::class,'showDetail'])->name('detail');
+        Route::get('pesanan/{id}/{jumlah}', [UserController::class,'pesanan'])->name('pesanan');
     });
 });
 

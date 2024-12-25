@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Buku;
+use App\Models\Pesanan;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -11,54 +13,32 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('frontpage.home');
+        $buku = Buku::orderBy('terjual', 'desc')->paginate(4);
+        return view('frontpage.home', compact('buku'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function showDetail(string $id)
     {
-        //
+        $buku= Buku::find($id);
+        return view('frontpage.detail', compact('buku'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+    public function pesanan(string $id, int $jumlah)
+    { 
+        $buku= Buku::find($id);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        Pesanan::create([
+            'id_buku'=> $buku->id,
+            'id_user'=> Auth::id(),
+            'jumlah'=> $jumlah,
+            'total'=> $jumlah*$buku->harga,
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+        $buku->update([
+            'terjual'=>$buku->terjual + $jumlah,
+            'stok'=>$buku->stok - $jumlah
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('home');
     }
 }

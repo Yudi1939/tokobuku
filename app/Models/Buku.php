@@ -17,12 +17,8 @@ class Buku extends Model
         'penerbit',
         'harga',
         'stok',
-        'status',
-        'id_toko'
+        'terjual',
+        'path',
+        'image',
     ];
-
-    public function toko()
-    {
-        return $this->belongsTo(Toko::class,'id_toko','id');
-    }
 }

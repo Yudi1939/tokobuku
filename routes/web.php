@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\view;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\BukuController;
 use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
@@ -24,6 +25,10 @@ Route::middleware('auth')->group(function () {
         Route::get('daftarbayar', [AdminController::class,'bayar'])->name('daftarbayar');
         Route::get('daftarpesan', [AdminController::class,'pesan'])->name('daftarpesan');
     });
+
+    Route::get('/create', [BukuController::class, 'create'])->name('create');
+    Route::post('/store', [BukuController::class, 'store'])->name('store');
+
     Route::prefix('user')->group(function () {
         Route::get('home',[UserController::class,'index'])->name('home');
         Route::get('detail/{id}', [UserController::class,'showDetail'])->name('detail');

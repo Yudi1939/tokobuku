@@ -116,7 +116,9 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
                                         <div class="flex space-x-3 text-sm leading-5 text-gray-900">
-                                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Verifikasi</a>
+                                            <a href="#" class="text-indigo-600 hover:text-indigo-900 verifikasi-btn" data-id="{{ $pembayaran->id }}">
+                                                Verifikasi
+                                            </a>
                                             <a href="#" class="text-red-600 hover:text-red-900">Hapus</a>
                                         </div>
                                     </td>
@@ -128,4 +130,82 @@
             </div>
         </div>
     </div>
+    @section('scripts')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Check if there are any verified payments to hide the button on page reload
+            const verifiedPayments = JSON.parse(localStorage.getItem('verifiedPayments')) || [];
+
+            // Verifikasi Button
+            const verifikasiButtons = document.querySelectorAll('.verifikasi-btn');
+            verifikasiButtons.forEach(button => {
+                const pembayaranId = button.getAttribute('data-id');
+                
+                // Hide button if the payment has already been verified
+                if (verifiedPayments.includes(pembayaranId)) {
+                    button.style.display = 'none';
+                }
+
+                button.addEventListener('click', function (event) {
+                    event.preventDefault();
+
+                    // SweetAlert loading before verifying
+                    Swal.fire({
+                        title: 'Verifikasi...',
+                        text: 'Memproses verifikasi pembayaran...',
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    // Simulate a server request with a delay (for demonstration)
+                    setTimeout(() => {
+                        Swal.fire({
+                            title: 'Berhasil',
+                            text: 'Pembayaran berhasil diverifikasi!',
+                            icon: 'success',
+                        });
+                        button.style.display = 'none'; // Hide the button after verification
+                        // Store the verified payment ID in local storage
+                        verifiedPayments.push(pembayaranId);
+                        localStorage.setItem('verifiedPayments', JSON.stringify(verifiedPayments));
+                    }, 2000); // Simulate a 2 second delay
+                });
+            });
+
+            // Hapus Button
+            const hapusButtons = document.querySelectorAll('.hapus-btn');
+            hapusButtons.forEach(button => {
+                button.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    const pembayaranId = button.getAttribute('data-id');
+
+                    // SweetAlert loading before deleting
+                    Swal.fire({
+                        title: 'Menghapus...',
+                        text: 'Memproses penghapusan pembayaran...',
+                        allowOutsideClick: false,
+                        showConfirmButton: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    // Simulate a server request with a delay (for demonstration)
+                    setTimeout(() => {
+                        Swal.fire({
+                            title: 'Dihapus',
+                            text: 'Pembayaran berhasil dihapus!',
+                            icon: 'success',
+                        });
+                        button.closest('tr').remove(); // Remove the row from the table
+                    }, 2000); // Simulate a 2 second delay
+                });
+            });
+        });
+    </script>
+    @endsection
 </x-admin-layout>

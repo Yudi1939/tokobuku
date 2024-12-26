@@ -1,6 +1,6 @@
 <x-admin-layout>
     <div class="container px-6 py-8 mx-auto">
-        <h3 class="text-3xl font-medium text-gray-700">Daftar Buku</h3>
+        <h3 class="text-3xl font-medium text-gray-700">Daftar Pembayaran</h3>
 
         <div class="mt-4">
             <div class="flex flex-wrap -mx-6">
@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>  
 
         <div class="flex flex-col mt-8">
             <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -91,49 +91,35 @@
                         <thead>
                             <tr>
                                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Judul</th>
+                                    Pesanan</th>
                                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Penulis</th>
+                                    Metode Pembayaran</th>
                                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Harga</th>
-                                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Stok</th>
-                                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Terjual</th>
+                                    Bukti Pembayaran</th>
                                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                     Aksi</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white">
-                            @foreach ($data as $buku)
+                            @foreach ($bayar as $pembayaran)
                                 <tr>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 w-10 h-10">
-                                                <img class="w-8 h-11" src="{{ asset($buku->path.$buku->image) }}" alt="{{ $buku->judul }}">
-                                            </div>
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium leading-5 text-gray-900">{{ $buku->judul }}</div>
-                                                <div class="text-sm leading-5 text-gray-500">{{ $buku->kategori }}</div>
-                                            </div>
+                                        <div class="text-sm leading-5 text-gray-900">{{ $pembayaran->pesanan->buku->judul }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-900">{{ $pembayaran->metode_pembayaran }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-900">
+                                            <img src="{{ asset($pembayaran->image) }}" alt="Bukti Pembayaran" class="w-20 h-20 object-cover rounded-md">
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-900">{{ $buku->penulis }}</div>
-                                        <div class="text-sm leading-5 text-gray-500">{{ $buku->penerbit }}</div>
+                                        <div class="flex space-x-3 text-sm leading-5 text-gray-900">
+                                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Verifikasi</a>
+                                            <a href="#" class="text-red-600 hover:text-red-900">Hapus</a>
+                                        </div>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-900">Rp{{ number_format($buku->harga, 0, ',', '.') }}</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-900">{{ $buku->stok }}</div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <div class="text-sm leading-5 text-gray-900">{{ $buku->terjual }}</div>
-                                    </td>
-                                    {{-- <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                        <a href="{{ route('buku.edit', $buku->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                    </td> --}}
                                 </tr>
                             @endforeach
                         </tbody>

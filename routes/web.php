@@ -21,6 +21,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('daftarbuku', [AdminController::class,'index'])->name('daftarbuku');
         Route::get('daftaruser', [AdminController::class,'users'])->name('daftaruser');
+        Route::get('daftarbayar', [AdminController::class,'bayar'])->name('daftarbayar');
+        Route::get('daftarpesan', [AdminController::class,'pesan'])->name('daftarpesan');
     });
     Route::prefix('user')->group(function () {
         Route::get('home',[UserController::class,'index'])->name('home');

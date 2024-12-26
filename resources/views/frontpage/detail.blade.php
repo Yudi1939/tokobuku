@@ -28,10 +28,10 @@
                         Selengkapnya
                     </button>
                 </div>
-                <p class="text-gray-700 mt-4"><span class="font-semibold">Penulis:</span>{{ $buku->penulis }}</p>
-                <p class="text-gray-700"><span class="font-semibold">Penerbit:</span>{{ $buku->penerbit }}</p>
+                <p class="text-gray-700 mt-4"><span class="font-semibold">Penulis: </span>{{ $buku->penulis }}</p>
+                <p class="text-gray-700"><span class="font-semibold">Penerbit: </span>{{ $buku->penerbit }}</p>
                 <p class="text-xl font-bold text-gray-800 mt-4">Rp {{ number_format($buku->harga, 0, ',', '.') }}</p>
-                <p class="text-gray-700 mt-2"><span class="font-semibold">Stok:</span> 145</p>
+                <p class="text-gray-700 mt-2"><span class="font-semibold">Stok: </span>{{ $buku->stok }}</p>
     
                 <!-- Bagian Jumlah Pembelian -->
                 <div class="mt-4 flex flex-col items-start">

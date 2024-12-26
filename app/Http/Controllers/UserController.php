@@ -16,7 +16,8 @@ class UserController extends Controller
     public function index()
     {
         $buku = Buku::orderBy('terjual', 'desc')->paginate(4);
-        return view('frontpage.home', compact('buku'));
+        $poin = Buku::orderBy('poin', 'desc')->paginate(4);
+        return view('frontpage.home', compact('buku', 'poin'));
     }
 
     public function showDetail(string $id)
@@ -47,7 +48,8 @@ class UserController extends Controller
 
         $buku->update([
             'terjual'=>$buku->terjual + $request->jumlah,
-            'stok'=>$buku->stok - $request->jumlah
+            'stok'=>$buku->stok - $request->jumlah,
+            'poin'=>$buku->poin + 5 * $request->jumlah,
         ]);
 
         return redirect()->route('pembayaran', $pesanan->id);
@@ -91,6 +93,12 @@ class UserController extends Controller
             'status' => 'Sedang Diproses'
         ]);
 
+        $buku = Buku::find($pesanan->id_buku);
+        $buku->update([
+            'terjual'=>$buku->terjual + $request->jumlah,
+            'poin'=>$buku->poin + 5 * $request->jumlah,
+        ]);
+
         return redirect()->route('home');
     }
 
@@ -106,5 +114,48 @@ class UserController extends Controller
         ]);
 
         return redirect()->route('daftarpesanan');
+    }
+
+    public function search(Request $request)
+    {
+        $searchName = $request->input('search');
+        $datas = Buku::where('judul', 'like', '%'.$searchName.'%')->paginate(4); // Paginate hasil pencarian
+        
+        foreach ($datas as $data) {
+            $buku=Buku::find($data->id);
+            $buku->update([
+                'poin'=>$buku->poin + 3,
+            ]);
+        }
+
+        return view('frontpage.search', compact('datas','searchName'));
+    }
+    
+    public function filter(Request $request)
+    {
+        $query = Buku::query();
+
+        $filterValue = $request->input('filter');
+        
+        if ($filterValue == "Ekonomi") {
+            $query->where('kategori', "Ekonomi");
+        } elseif ($filterValue == "Hukum") {
+            $query->where('kategori', "Hukum");
+        } elseif ($filterValue == "Teknologi") {
+            $query->where('kategori', "Teknologi");
+        } elseif ($filterValue == "Sains") {
+            $query->where('kategori', "Sains");
+        }
+
+        $datas = $query->paginate(4);
+        
+        foreach ($datas as $data) {
+            $buku=Buku::find($data->id);
+            $buku->update([
+                'poin'=>$buku->poin + 1,
+            ]);
+        }
+
+        return view('frontpage.filter', compact('datas', 'filterValue'));
     }
 }

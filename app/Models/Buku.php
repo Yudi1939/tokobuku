@@ -20,5 +20,6 @@ class Buku extends Model
         'terjual',
         'path',
         'image',
+        'poin'
     ];
 }

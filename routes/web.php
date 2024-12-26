@@ -30,6 +30,8 @@ Route::middleware('auth')->group(function () {
         Route::post('storePembayaran/{id}', [UserController::class,'pembayaranStore'])->name('storePembayaran');
         Route::get('daftarpesanan', [UserController::class,'daftarPesanan'])->name('daftarpesanan');
         Route::get('selesaiPesanan/{id}', [UserController::class,'selesaiPesanan'])->name('selesaiPesanan');
+        Route::get('search', [UserController::class,'search'])->name('search');
+        Route::get('filter', [UserController::class,'filter'])->name('filter');
     });
 });
 

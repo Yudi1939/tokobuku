@@ -24,6 +24,12 @@ Route::middleware('auth')->group(function () {
     });
     Route::prefix('user')->group(function () {
         Route::get('home',[UserController::class,'index'])->name('home');
+        Route::get('detail/{id}', [UserController::class,'showDetail'])->name('detail');
+        Route::post('pesanan/{id}', [UserController::class,'pesanan'])->name('pesanan');
+        Route::get('pembayaran/{id}', [UserController::class,'pembayaran'])->name('pembayaran');
+        Route::post('storePembayaran/{id}', [UserController::class,'pembayaranStore'])->name('storePembayaran');
+        Route::get('daftarpesanan', [UserController::class,'daftarPesanan'])->name('daftarpesanan');
+        Route::get('selesaiPesanan/{id}', [UserController::class,'selesaiPesanan'])->name('selesaiPesanan');
     });
 });
 

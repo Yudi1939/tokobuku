@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->id('id');
             $table->foreignId('id_pesanan');
-            $table->string('bukti_pembayaran');
+            $table->string('metode_pembayaran');
+            $table->string('path');
+            $table->string('image');
             $table->timestamps();
         });
     }

@@ -1,6 +1,6 @@
 <x-admin-layout>
     <div class="container px-6 py-8 mx-auto">
-        <h3 class="text-3xl font-medium text-gray-700">Daftar Pengguna</h3>
+        <h3 class="text-3xl font-medium text-gray-700">Daftar Pesanan</h3>
 
         <div class="mt-4">
             <div class="flex flex-wrap -mx-6">
@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>        
 
         <div class="flex flex-col mt-8">
             <div class="py-2 -my-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
@@ -90,49 +90,46 @@
                         <thead>
                             <tr>
                                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Nama</th>
+                                    Judul Buku</th>
                                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Email</th>
+                                    Nama Pengguna</th>
                                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
-                                    Peran</th>
+                                    Jumlah</th>
+                                <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
+                                    Total</th>
                                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                     Status</th>
                                 <th class="px-6 py-3 text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase border-b border-gray-200 bg-gray-50">
                                     Aksi</th>
                             </tr>
                         </thead>
-
                         <tbody class="bg-white">
-                            @foreach ($users as $user)
-                            <tr>
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm font-medium leading-5 text-gray-900">{{ $user->name }}</div>
-                                    <div class="text-sm leading-5 text-gray-500">{{ $user->role }}</div>
-                                </td>
-
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-900">{{ $user->email }}</div>
-                                </td>
-
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <div class="text-sm leading-5 text-gray-900">{{ ucfirst($user->role) }}</div>
-                                </td>
-
-                                <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
-                                    <span class="inline-flex px-2 text-xs font-semibold leading-5 text-{{ $user->status == 'active' ? 'green' : 'red' }}-800 bg-{{ $user->status == 'active' ? 'green' : 'red' }}-100 rounded-full">
-                                        {{ ucfirst($user->status) }}
-                                    </span>
-                                </td>
-
-                                <td class="px-6 py-4 text-sm font-medium leading-5 text-right whitespace-no-wrap border-b border-gray-200">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a>
-                                </td>
-                            </tr>
+                            @foreach ($pesan as $order)
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-900">{{ $order->buku->judul }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-900">{{ $order->user->name }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-900">{{ $order->jumlah }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-900">Rp{{ number_format($order->total, 0, ',', '.') }}</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <div class="text-sm leading-5 text-gray-900">{{ $order->status }}</div>
+                                    </td>
+                                    {{-- <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200">
+                                        <a href="{{ route('pesan.edit', $order->id) }}" class="text-indigo-600 hover:text-indigo-900">Edit</a>
+                                    </td> --}}
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
+        </div>        
     </div>
 </x-admin-layout>

@@ -19,12 +19,21 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::prefix('admin')->group(function () {
-        Route::get('daftarbuku',[AdminController::class,'index'])->name('daftarbuku');
-        Route::get('daftaruser', [view::class,'daftaruser'])->name('daftaruser');
+        Route::get('daftarbuku', [AdminController::class,'index'])->name('daftarbuku');
+        Route::get('daftaruser', [AdminController::class,'users'])->name('daftaruser');
     });
     Route::prefix('user')->group(function () {
         Route::get('home',[UserController::class,'index'])->name('home');
     });
 });
+
+// Route::middleware(['auth', 'admin'])->group(function () {
+//     Route::get('/admin/daftarbuku', [AdminController::class, 'index'])->name('admin.daftarbuku');
+//     Route::get('/admin/daftarbuku/create', [AdminController::class, 'create'])->name('admin.buku.create');
+//     Route::post('/admin/daftarbuku', [AdminController::class, 'store'])->name('admin.buku.store');
+//     Route::get('/admin/daftarbuku/{id}/edit', [AdminController::class, 'edit'])->name('admin.buku.edit');
+//     Route::put('/admin/daftarbuku/{id}', [AdminController::class, 'update'])->name('admin.buku.update');
+//     Route::delete('/admin/daftarbuku/{id}', [AdminController::class, 'destroy'])->name('admin.buku.destroy');
+// });
 
 require __DIR__.'/auth.php';

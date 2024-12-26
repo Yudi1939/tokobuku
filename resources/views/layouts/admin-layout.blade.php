@@ -64,7 +64,7 @@ $users = [
                         </path>
                     </svg>
     
-                    <span class="mx-3">Daftar user</span>
+                    <span class="mx-3">Daftar User</span>
                 </a>
             </nav>
         </div>

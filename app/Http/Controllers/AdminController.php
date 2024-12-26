@@ -2,63 +2,58 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Buku;
+use App\Models\User; // Pastikan model User diimport
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Menampilkan Daftar Buku
     public function index()
     {
-        return view('admin.admin-page');
+        $buku = Buku::all(); // Mengambil semua buku dari database
+        return view('admin.daftarbuku', compact('buku')); // Menampilkan view admin-page dengan data buku
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Menampilkan form untuk menambah buku (form-create)
     public function create()
     {
-        //
+        return view('admin.create-buku');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Menyimpan buku baru ke dalam database
     public function store(Request $request)
     {
-        //
+        Buku::create($request->all());
+        return redirect()->route('admin.daftarbuku');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Menampilkan form untuk mengedit buku
+    public function edit($id)
     {
-        //
+        $buku = Buku::findOrFail($id);
+        return view('admin.edit-buku', compact('buku'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Mengupdate data buku
+    public function update(Request $request, $id)
     {
-        //
+        $buku = Buku::findOrFail($id);
+        $buku->update($request->all());
+        return redirect()->route('admin.daftarbuku');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // Menghapus buku
+    public function destroy($id)
     {
-        //
+        Buku::destroy($id);
+        return redirect()->route('admin.daftarbuku');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    // Menampilkan Daftar Pengguna
+    public function users()
     {
-        //
+        $users = User::all(); // Mengambil semua pengguna dari database
+        return view('admin.daftaruser', compact('users')); // Menampilkan view daftar pengguna
     }
 }

@@ -6,7 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bookstore</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <?php $qty=1; ?>
 </head>
 <body>
     <section class="p-6 bg-gray-100 min-h-screen flex justify-center items-center">
@@ -17,7 +16,8 @@
             </div>
     
             <!-- Bagian Deskripsi -->
-            <div class="w-2/3 p-4">
+            <form action="{{ route('pesanan', $buku->id) }}" method="POST" class="w-2/3 p-4">
+                @csrf
                 <p class="text-sm text-gray-500 mb-2">{{ $buku->kategori }}</p>
                 <h2 class="text-2xl font-bold mb-4">{{ $buku->judul }}</h2>
                 <div>
@@ -36,22 +36,12 @@
                 <!-- Bagian Jumlah Pembelian -->
                 <div class="mt-4 flex flex-col items-start">
                     <p class="text-gray-700">Jumlah Pembelian</p>
-                    <div class="flex items-center">
-                        <button
-                            class="bg-gray-300 text-gray-700 px-2 py-1 rounded-l"
-                            type="button"
-                            id="decreaseQty" action="{{ $qty-- }}">-</button>
-                        <input
-                            type="number"
-                            name="jumlah"
-                            value="1"
-                            class="w-20 text-center border border-gray-300 focus:outline-none"
-                            id="qtyInput" min="1">
-                        <button
-                            class="bg-gray-300 text-gray-700 px-2 py-1 rounded-r"
-                            type="button"
-                            id="increaseQty" action="{{ $qty++ }}">+</button>
-                    </div>
+                    <input
+                        type="number"
+                        name="jumlah"
+                        value="1"
+                        class="w-20 text-center border border-gray-300 focus:outline-none"
+                        id="qtyInput" min="1">
                 </div>
     
                 <!-- Tombol Keranjang dan Pesan -->
@@ -59,42 +49,12 @@
                     <a href="{{ route('home') }}" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
                         Kembali
                     </a>
-                    <a href="{{ route('pesanan', ['id' => $buku->id, 'jumlah' => $qty]) }}" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
+                    <button type="submit" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600">
                         Pesan
-                    </a>
+                    </button>
                 </div>
-            </div>
+            </form>
         </div>
     </section>
-
-    <script>
-        document.getElementById('toggleDeskripsi').addEventListener('click', function () {
-            const deskripsi = document.getElementById('deskripsi');
-            const btn = this;
-    
-            if (deskripsi.classList.contains('line-clamp-3')) {
-                deskripsi.classList.remove('line-clamp-3');
-                btn.textContent = 'Tampilkan lebih sedikit';
-            } else {
-                deskripsi.classList.add('line-clamp-3');
-                btn.textContent = 'Selengkapnya';
-            }
-        });
-    
-        // Mengontrol jumlah pembelian
-        document.getElementById('decreaseQty').addEventListener('click', function () {
-            const qtyInput = document.getElementById('qtyInput');
-            let currentValue = parseInt(qtyInput.value);
-            if (currentValue > 1) {
-                qtyInput.value = currentValue - 1;
-            }
-        });
-    
-        document.getElementById('increaseQty').addEventListener('click', function () {
-            const qtyInput = document.getElementById('qtyInput');
-            let currentValue = parseInt(qtyInput.value);
-            qtyInput.value = currentValue + 1;
-        });
-    </script>
 </body>
 </html>

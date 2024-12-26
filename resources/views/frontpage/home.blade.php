@@ -41,7 +41,7 @@
     
             <!-- Shopping Cart -->
             <button class="flex items-center">
-                <img src="{{ asset('icon/shop.jpg') }}" alt="Cart Icon" class="w-8 h-8">
+                <a href="{{ route('daftarpesanan') }}"><img src="{{ asset('icon/shop.jpg') }}" alt="Cart Icon" class="w-8 h-8"></a>
             </button>
     
             <!-- User Button -->
